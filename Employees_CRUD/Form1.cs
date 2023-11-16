@@ -117,14 +117,14 @@ namespace Employees_CRUD
         int empID = 0;
         private void dataGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            
+
             empID = Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value);
-            
+
             SqlCommand com = new SqlCommand
                 ("select * from EmployeeTest1 Where Emp_ID=@EmpID", conn);
             com.Parameters.AddWithValue("@EmpID", empID);
             conn.Open();
-            
+
             SqlDataReader dr = com.ExecuteReader();
             while (dr.Read())
             {
@@ -140,8 +140,13 @@ namespace Employees_CRUD
                 if (dr["Sex"].ToString() == "Male")
                 {
                     radioBtnMale.Checked = true;
+                    radioBtnFemale.Checked = false;
                 }
-                else radioBtnFemale.Checked = true;
+                else
+                { 
+                    radioBtnFemale.Checked = true; 
+                    radioBtnMale.Checked = false;
+                }
                 // ***********************************************************
 
                 textBoxContact.Text = dr["Contact"].ToString();
